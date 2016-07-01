@@ -1,7 +1,7 @@
 """Models for Ata."""
 
 from django.db import models
-from django.contrib.auth.models import User, UserManager
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -10,7 +10,6 @@ class Student(User):
     """Student's docstring."""
 
     student_registration = models.IntegerField()
-    objects = UserManager()
 
 
 class Professor(User):
@@ -18,7 +17,6 @@ class Professor(User):
 
     professor_registration = models.IntegerField()
     formation = models.CharField(max_length=200)
-    objects = UserManager()
 
 
 class Notebook(models.Model):
