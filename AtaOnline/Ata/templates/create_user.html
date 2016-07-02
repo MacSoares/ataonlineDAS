@@ -1,0 +1,47 @@
+{% extends "main_base.html" %}
+{% load i18n %}
+{% block main_content %}
+    <div class="container">
+        <div class="col s6">
+            <div class="card s12 m3 ">
+                <div class="card center">
+                    {% load static from staticfiles %}
+                    <img src="{% static 'images/ata_logo.png' %}" height="90" width="90"><br>
+                    <span class="card-title">Cadastre-se</span>
+                </div>
+                <div class="card-content">
+                    <form action="/createuser/" method="post">
+                    {% csrf_token %}
+                        <div class="input-field col s3">
+                            <i class="fa fa-graduation-cap prefix"></i>
+                            <input id="registration" name="registration" type="text" class="validate" placeholder="Matrícula">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-user prefix"></i>
+                            <input id="first_name" name="first_name" type="text" class="validate" placeholder="Nome">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input id="email" type="text" name="email" class="validate" placeholder="Email">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-user prefix"></i>
+                            <input  id="username" name="username" type="text" class="validate" placeholder="Nome de Usuário (login)">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-key prefix"></i>
+                            <input id="password" name="password" type="password" class="validate" placeholder="Senha">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-key prefix"></i>
+                            <input id="password2" type="password" class="validate" placeholder="Digite a sennha novamente">
+                        </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Registrar
+                            <i class="material-icons right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock main_content %}

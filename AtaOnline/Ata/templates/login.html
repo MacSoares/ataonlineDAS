@@ -1,0 +1,34 @@
+{% extends "main_base.html" %}
+{% load i18n %}
+{% block main_content %}
+    <div class="container">
+        <div class="col s6">
+            <div class="card s12 m3">
+                <div class="card center">
+                    {% load static from staticfiles %}
+                    <img src="{% static 'images/ata_logo.png' %}" height="90" width="90"><br>
+                    <span class="card-title">Login</span>
+                </div>
+                <div class="card-content">
+                    <form action="/login/" method="POST">
+                        {% csrf_token %}
+                        <div class="input-field col s3">
+                            <i class="fa fa-user prefix"></i>
+                            <input  id="username" name="username" placeholder="Nome de Usuário"type="text" class="validate">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-key prefix"></i>
+                            <input id="password" name="password" placeholder="Senha" type="password" class="validate">
+                        </div>
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Entrar
+                            <i class="material-icons right"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="card-action">
+                    <a href="/signup/">Novo? Cadastre-se</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main_content %}
