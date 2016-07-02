@@ -1,0 +1,17 @@
+{% block side_bar %}
+<div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+
+        {% load static from staticfiles %}
+        <header class="demo-drawer-header">
+          <center>
+            <img src="{% static 'images/ata_logo.png'%}" height="90" width="90"> <br>
+            Ata Online
+          </center>
+        </header>
+
+        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons fa fa-home" role="presentation"></i>Home</a>
+          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons fa fa-inbox" role="presentation"></i>Inbox</a>
+        </nav>
+</div>
+{% endblock side_bar %}

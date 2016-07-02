@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        {% load static from staticfiles %}
+        <link rel="icon" href="{% static 'images/ata_logo.png' %}">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Material Design Lite">
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <title>Ata Online</title>
+        <link rel="icon" href="{% static 'images/ata_logo.png' %}">
+        <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.css' %}"  media="screen,projection"/>
+        <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet"> -->
+        <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+        <link rel="stylesheet" type="text/css" href="{% static 'css/material.min.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css'%}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css'%}">
+    {% block header %}{% endblock header %}
+</head>
+<body>
+    {% block main_content %}
+    {% endblock main_content %}
+    <script src="{% static 'js/material.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+</body>
+</html>
