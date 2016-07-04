@@ -1,0 +1,35 @@
+{% extends "main_base.html" %}
+{% load i18n %}
+{% block main_content %}
+    <div class="container">
+        <div class="col s6">
+            <div class="card s12 m3 ">
+                <div class="card center">
+                    {% load static from staticfiles %}
+                    <img src="{% static 'images/ata_logo.png' %}" height="90" width="90"><br>
+                    <span class="card-title">Crie sua Ata!</span>
+                </div>
+                <div class="card-content">
+                    <form action="/start_ata/" method="POST">
+                    {% csrf_token %}
+                        <div class="input-field col s3">
+                            <i class="fa fa-graduation-cap prefix"></i>
+                            <input id="titulo" name="titulo" type="text" class="validate" placeholder="Título">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-user prefix"></i>
+                            <input id="date" name="date" type="date" class="validate" placeholder="Data">
+                        </div>
+                        <div class="input-field col s3">
+                            <i class="fa fa-envelope prefix"></i>
+                            <input id="content" type="textarea" name="content" class="validate" placeholder="Conteúdo">
+                        </div>
+                            <button class="btn waves-effect waves-light" type="submit" name="action">Salvar Ata
+                            <i class="material-icons right"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock main_content %}

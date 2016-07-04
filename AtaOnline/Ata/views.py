@@ -91,3 +91,20 @@ class SignUp(View):
         """Get method for CreateUser."""
         return render_to_response(
             'create_user.html', context_instance=RequestContext(request))
+
+
+class Ata(View):
+    """Class to use for ata manipulation."""
+
+    def get(self, request):
+        """Start template of create Ata."""
+        if request.user.is_authenticated():
+            respond_view = render_to_response('create_ata.html')
+        else:
+            respond_view = render_to_response(
+                'login.html', context_instance=RequestContext(request))
+        return respond_view
+
+    def post(self, request):
+        """Get ata informations to save."""
+        request_user = request.POST['user_id']
