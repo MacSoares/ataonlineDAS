@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response, render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.template import RequestContext
-from .models import Student
+from .models import Student, Notebook
 
 # Create your views here.
 
@@ -99,7 +99,7 @@ class Ata(View):
     def get(self, request):
         """Start template of create Ata."""
         if request.user.is_authenticated():
-            respond_view = render_to_response('create_ata.html')
+            respond_view = render_to_response('create_ata.html', context_instance=RequestContext(request))
         else:
             respond_view = render_to_response(
                 'login.html', context_instance=RequestContext(request))
@@ -107,4 +107,17 @@ class Ata(View):
 
     def post(self, request):
         """Get ata informations to save."""
-        request_user = request.POST['user_id']
+        user = request.user
+        title = request.POST['title']
+        date = request.POST['date']
+        content = request.POST['content']
+
+        new_notebook = Notebook()
+        new_notebook.user = user
+        new_notebook.title = title
+        new_notebook.date = date
+        new_notebook.content = content
+
+        new_notebook.save()
+
+        return redirect('index')
