@@ -1,0 +1,25 @@
+<center><br><br>
+    <h3 >Relatório experimento x</h3>
+    <table id="ata">
+        <thead>
+            <tr>
+              <th>Título</th>
+              <th>Autor</th>
+              <th>Data</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for ata in ata %}
+            <tr>
+              <td>{{ ata.title }}</td>
+              <td>{{ ata.user }}</td>
+              <td>{{ ata.date }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5> Conteúdo </h5>
+
+    {{ata.content}}
+
+    {% endfor %}
+</center>
