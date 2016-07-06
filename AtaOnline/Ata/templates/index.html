@@ -1,54 +1,42 @@
-<html lang="pt_Br">
-  <head>
-
-    <meta charset="utf-8">
-
-    <title>Ata Online</title>
-
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="Material Design Lite">
-    <meta name="mobile-web-app-capable" content="yes">
-
-    {% load static from staticfiles %}
-
-    <link rel="icon" href="{% static 'images/ata_logo.png' %}">
-
-    <!-- <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet"> -->
-    <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-    <link rel="stylesheet" type="text/css" href="{% static 'css/material.min.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css'%}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/font-awesome.min.css'%}">
-    {% block header %}{% endblock header %}
-  </head>
-  <body>
-    <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+{% extends "main_base.html" %}
+{% load i18n %}
+{% block main_content %}
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
       {% include 'top_bar.html' %}
       {% include 'side_bar.html' %}
-    </div>
-        <center><br><br>
-            <h3 >Atas Cadastradas</h3>
-            <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                      <th>Título</th>
-                      <th>Autor</th>
-                      <th>Data</th>
-                    </tr>
-                </thead>
-                <tbody>
-                  {% for ata in notebooks %}
-                    <tr>
-                      <td>{{ ata.title }}</td>
-                      <td>{{ ata.user }}</td>
-                      <td>{{ ata.date }}</td>
-                    </tr>
-                  {% endfor %}
-                </tbody>
-            </table>
-        </center>
-
-    <script src="{% static 'js/material.min.js'%}"></script>
-  </body>
-</html>
+</div>
+<div style="margin-left: 25%;">
+  <center><br><br>
+      <h3 >Atas Cadastradas</h3>
+      <table id="atas" class="table table-bordered table-hover">
+          <thead>
+              <tr>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Data</th>
+                <th>Ação</th>
+              </tr>
+          </thead>
+          <tbody>
+            {% for ata in notebooks %}
+            <form action="/convert_ata/" method="POST">
+             {% csrf_token %}
+              <tr>
+                <td>{{ ata.title }}</td>
+                <input type="hidden" name="title" value="{{ ata.title }}">
+                <td>{{ ata.user }}</td>
+                <input type="hidden" name="user" value="{{ ata.user }}">
+                <td>{{ ata.date }}</td>
+                <input type="hidden" name="date" value="{{ ata.date }}">
+                <input type="hidden" name="content" value="{{ ata.content }}">
+                <td>
+                  <input type="submit" name="converter" value="Converter para PDF">
+                </td>
+              </tr>
+            </form>
+            {% endfor %}
+          </tbody>
+      </table>
+  </center>
+</div>
+{% endblock main_content %}

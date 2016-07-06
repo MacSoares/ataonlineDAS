@@ -19,15 +19,15 @@
                         {% csrf_token %}
                         <div class="input-field col s3">
                             <i class="fa fa-font prefix"></i>
-                            <input id="titulo" name="title" type="text" class="validate" placeholder="Título">
+                            <input id="titulo" name="title" type="text" class="validate" placeholder="Título" required>
                         </div>
                         <div class="input-field col s3">
                             <i class="fa fa-calendar prefix"></i>
-                            <input id="date" name="date" type="date" class="validate" placeholder="Data">
+                            <input id="date" name="date" type="date" class="validate" placeholder="Data" required>
                         </div>
                         <div class="input-field col s3">
                             <i class="fa fa-align-justify prefix"></i>
-                            <input id="content" type="textarea" name="content" class="validate" placeholder="Conteúdo" style="height:200px; width:95%">
+                            <input id="content" type="textarea" name="content" class="validate" placeholder="Conteúdo" style="height:200px; width:95%" required>
                         </div>
                         <br>
                             <button class="btn waves-effect waves-light" type="submit" name="action">Salvar Ata

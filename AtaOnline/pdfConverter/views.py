@@ -8,7 +8,7 @@ from django.template.loader import get_template
 class PdfConverter:
     """Class to convert html page to a pdf file."""
 
-    def convert(page, output, data):
+    def convert(self, page, output, data):
         """Function to convert."""
         target = get_template(page)
         html = target.render(Context(data))

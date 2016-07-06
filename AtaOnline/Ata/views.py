@@ -6,6 +6,7 @@ from django.template import RequestContext
 from .models import Student, Notebook, Professor
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from pdfConverter.views import PdfConverter
 # Create your views here.
 
 
@@ -17,7 +18,8 @@ class Index(View):
         if request.user.is_authenticated():
             notebooks = Notebook.objects.all()
             respond_view = render_to_response(
-                'index.html', {'notebooks': notebooks}, RequestContext(request))
+                'index.html',
+                {'notebooks': notebooks}, RequestContext(request))
         else:
             respond_view = render_to_response(
                 'login.html', context_instance=RequestContext(request))
@@ -162,3 +164,25 @@ class Ata(View):
         new_notebook.save()
 
         return redirect('index')
+
+
+class Convertion(PdfConverter, View):
+    """Clas that uses pdf convertion plugin."""
+
+    def post(self, request):
+        """Function that will convert"""
+        user = request.user
+        title = request.POST['title']
+        date = request.POST['date']
+        content = request.POST['content']
+
+        new_notebook = Notebook()
+        new_notebook.user = user
+        new_notebook.title = title
+        new_notebook.date = date
+        new_notebook.content = content
+
+        data_pass = {'ata': new_notebook}
+
+        return self.convert(
+            "ata_to_pdf.html", "ata " + title + ".pdf", data_pass)

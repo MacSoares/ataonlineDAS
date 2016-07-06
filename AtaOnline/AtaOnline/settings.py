@@ -41,6 +41,7 @@ DJANGO_APPS = (
 
 ATAONLINE_APPS = (
     'Ata',
+    'pdfConverter',
 )
 
 INSTALLED_APPS = DJANGO_APPS + ATAONLINE_APPS
