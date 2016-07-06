@@ -15,9 +15,9 @@ class Index(View):
     def get(self, request):
         """Index."""
         if request.user.is_authenticated():
-            # notebooks = Notebook.objects.all()
+            notebooks = Notebook.objects.all()
             respond_view = render_to_response(
-                'index.html', RequestContext(request))
+                'index.html', {'notebooks': notebooks}, RequestContext(request))
         else:
             respond_view = render_to_response(
                 'login.html', context_instance=RequestContext(request))
@@ -30,7 +30,7 @@ class Login(View):
     http_method_names = [u'get', u'post']
 
     @receiver(post_save, sender=Notebook)
-    def update_stock(sender, instance, **kwargs):
+    def update_stock_atas(sender, instance, **kwargs):
         print('Sinal foi Salvo!')
 
     def post(self, request):

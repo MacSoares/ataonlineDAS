@@ -1,9 +1,14 @@
 {% extends "main_base.html" %}
 {% load i18n %}
 {% block main_content %}
+<div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+      {% include 'top_bar.html' %}
+      {% include 'side_bar.html' %}
+    </div>
+<div style="margin-left: 25%;">
     <div class="container">
         <div class="col s6">
-            <div class="card s12 m3 ">
+            <div class="card s12 m3 "><br><br><br><br>
                 <div class="card center">
                     {% load static from staticfiles %}
                     <img src="{% static 'images/ata_logo.png' %}" height="90" width="90"><br>
@@ -33,4 +38,5 @@
             </div>
         </div>
     </div>
+</div>
 {% endblock main_content %}
