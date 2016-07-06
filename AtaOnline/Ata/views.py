@@ -1,10 +1,11 @@
 """Django views."""
-from django.shortcuts import render_to_response, render, redirect
+from django.shortcuts import render_to_response, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic import View
 from django.template import RequestContext
-from .models import Student, Notebook
-
+from .models import Student, Notebook, Professor
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your views here.
 
 
@@ -14,7 +15,9 @@ class Index(View):
     def get(self, request):
         """Index."""
         if request.user.is_authenticated():
-            respond_view = render_to_response('index.html')
+            # notebooks = Notebook.objects.all()
+            respond_view = render_to_response(
+                'index.html', RequestContext(request))
         else:
             respond_view = render_to_response(
                 'login.html', context_instance=RequestContext(request))
@@ -25,6 +28,10 @@ class Login(View):
     """This class will define every method that has login in."""
 
     http_method_names = [u'get', u'post']
+
+    @receiver(post_save, sender=Notebook)
+    def update_stock(sender, instance, **kwargs):
+        print('Sinal foi Salvo!')
 
     def post(self, request):
         """Loggin method."""
@@ -62,7 +69,7 @@ class Logout(View):
         return redirect('login')
 
 
-class SignUp(View):
+class SignUpStudent(View):
     """Create user Professor or Student."""
 
     http_method_names = [u'get', u'post']
@@ -90,7 +97,40 @@ class SignUp(View):
     def get(self, request):
         """Get method for CreateUser."""
         return render_to_response(
-            'create_user.html', context_instance=RequestContext(request))
+            'create_student.html', context_instance=RequestContext(request))
+
+
+class SignUpTeacher(View):
+    """Create user Professor or Student."""
+
+    http_method_names = [u'get', u'post']
+
+    def post(self, request):
+        """Get all information and creat a user."""
+        request_username = request.POST['username']
+        request_password = request.POST['password']
+        request_first_name = request.POST['first_name']
+        request_number_id = request.POST['registration']
+        request_formation = request.POST['formation']
+        request_email = request.POST['email']
+
+        new_teacher = Professor()
+        new_teacher.username = request_username
+        new_teacher.set_password(request_password)
+        new_teacher.first_name = request_first_name
+        new_teacher.professor_registration = request_number_id
+        new_teacher.formation = request_formation
+        new_teacher.email = request_email
+
+        new_teacher.save()
+
+        return redirect('login')
+        # render(request, 'login.html', {})
+
+    def get(self, request):
+        """Get method for CreateUser."""
+        return render_to_response(
+            'create_professor.html', context_instance=RequestContext(request))
 
 
 class Ata(View):
@@ -99,7 +139,8 @@ class Ata(View):
     def get(self, request):
         """Start template of create Ata."""
         if request.user.is_authenticated():
-            respond_view = render_to_response('create_ata.html', context_instance=RequestContext(request))
+            respond_view = render_to_response(
+                'create_ata.html', context_instance=RequestContext(request))
         else:
             respond_view = render_to_response(
                 'login.html', context_instance=RequestContext(request))
